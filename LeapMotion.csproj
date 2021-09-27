@@ -183,6 +183,7 @@
      <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Utils\AssertHelper.cs" />
      <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Animation\CubicHermiteSpline\HermiteSpline2.cs" />
      <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Attachments\AttachmentHandEnableDisable.cs" />
+     <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Hands\CustomCapsuleHand.cs" />
      <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Attachments\AttachmentPointFlags.cs" />
      <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Hands\RiggedFinger.cs" />
      <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Hands\HandDrop.cs" />
@@ -227,7 +228,6 @@
      <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Splines\Examples\TransformCatmullRomSpline.cs" />
      <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Geometry\LocalShapes\LocalSegment3.cs" />
      <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Attributes\ImplementsTypeNameDropdown.cs" />
-     <Compile Include="Assets\Plugins\LeapMotion\Core\Scripts\Hands\CustomCapsuleHand.cs" />
      <None Include="Assets\Plugins\LeapMotion\Core\Scripts\LeapMotion.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.1.21f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

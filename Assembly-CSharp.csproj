@@ -36,8 +36,8 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\ClipBoxReal.cs" />
      <Compile Include="Assets\ClipBoxVirtual.cs" />
+     <Compile Include="Assets\ClipBoxReal.cs" />
      <None Include="Assets\RealShader.shader" />
      <None Include="Assets\VirtualShader.shader" />
     <Reference Include="UnityEngine">

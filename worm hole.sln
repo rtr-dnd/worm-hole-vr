@@ -31,11 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.XR.Management", "Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamVR_Actions", "SteamVR_Actions.csproj", "{a3505323-d140-7c27-e688-1e27ae82b21a}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{25e4a042-2bdf-275e-2869-29dc70900fea}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.SpatialTracking", "UnityEngine.SpatialTracking.csproj", "{9ec97868-a740-8949-02f9-4a8b2a4cce3c}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Subsystem.Registration", "Unity.Subsystem.Registration.csproj", "{ca3a8531-da63-e65a-776a-f84e6c54458e}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{25e4a042-2bdf-275e-2869-29dc70900fea}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.PlasticSCM.Editor", "Unity.PlasticSCM.Editor.csproj", "{0b576993-4ba5-5c74-322e-4e44d4ee63db}"
 EndProject
@@ -114,12 +114,12 @@ Global
 		{75e41e2e-64b5-ad73-221d-250056404988}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{a3505323-d140-7c27-e688-1e27ae82b21a}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{a3505323-d140-7c27-e688-1e27ae82b21a}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25e4a042-2bdf-275e-2869-29dc70900fea}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25e4a042-2bdf-275e-2869-29dc70900fea}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ec97868-a740-8949-02f9-4a8b2a4cce3c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9ec97868-a740-8949-02f9-4a8b2a4cce3c}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ca3a8531-da63-e65a-776a-f84e6c54458e}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ca3a8531-da63-e65a-776a-f84e6c54458e}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25e4a042-2bdf-275e-2869-29dc70900fea}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25e4a042-2bdf-275e-2869-29dc70900fea}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0b576993-4ba5-5c74-322e-4e44d4ee63db}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0b576993-4ba5-5c74-322e-4e44d4ee63db}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9fcfeb23-cae5-8760-3885-f7cca4cd1c20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
