@@ -4,17 +4,16 @@ using UnityEngine;
 using UnityEngine.XR;
 using Valve.VR;
 
-public class DisplaceVirtual : MonoBehaviour
+public class DisplaceWithoutAngleVirtual : MonoBehaviour
 {
   public GameObject RealCounterpart;
-  public GameObject tracker;
   public GameObject RealHole;
   public GameObject VirtualHole;
   private Matrix4x4 oMt; // origin to tracker
   private Matrix4x4 tMc; // tracker to chair
   private Matrix4x4 chairMat;
   private Quaternion relativeRot;
-  // private SteamVR_Action_Pose tracker1 = SteamVR_Actions.default_Pose;
+  private SteamVR_Action_Pose tracker1 = SteamVR_Actions.default_Pose;
 
   // Start is called before the first frame update    
 
@@ -31,10 +30,8 @@ public class DisplaceVirtual : MonoBehaviour
         RealCounterpart.transform.localScale
     );
     oMt = Matrix4x4.TRS(
-        // tracker1.GetLocalPosition(SteamVR_Input_Sources.RightHand),
-        tracker.transform.position,
-        // tracker1.GetLocalRotation(SteamVR_Input_Sources.RightHand),
-        tracker.transform.rotation,
+        tracker1.GetLocalPosition(SteamVR_Input_Sources.RightHand),
+        tracker1.GetLocalRotation(SteamVR_Input_Sources.RightHand),
         new Vector3(1, 1, 1)
     );
 
