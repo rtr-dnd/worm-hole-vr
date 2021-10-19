@@ -17,6 +17,7 @@
          half _Glossiness;
          half _Metallic;
          float4x4 _WorldToBoxReal;
+         float4x4 _WorldToBoxReal2;
  
          struct Input {
              float2 uv_MainTex;
@@ -25,8 +26,32 @@
  
          void surf (Input IN, inout SurfaceOutputStandard o) {
              float3 boxPosition = mul(_WorldToBoxReal, float4(IN.worldPos, 1));
-             clip(boxPosition + 0.5);
-             clip(0.5 - boxPosition);
+             float3 boxPosition2 = mul(_WorldToBoxReal2, float4(IN.worldPos, 1));
+             clip(
+                max(
+                    min(
+                        min(boxPosition.x + 0.5, boxPosition.y + 0.5),
+                        boxPosition.z + 0.5
+                    ),
+                    min(
+                        min(boxPosition2.x + 0.5, boxPosition2.y + 0.5),
+                        boxPosition2.z + 0.5
+                    )
+                )
+             );
+             clip(
+                max(
+                    min(
+                        min(0.5 - boxPosition.x, 0.5 - boxPosition.y),
+                        0.5 - boxPosition.z
+                    ),
+                    min(
+                        min(0.5 - boxPosition2.x, 0.5 - boxPosition2.y),
+                        0.5 - boxPosition2.z
+                    )
+                )
+             );
+ 
  
              fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
              o.Albedo = c.rgb;
