@@ -7,13 +7,14 @@ using UnityEngine;
 public class ExportTrajectory : MonoBehaviour
 {
   public string filePrefix;
-  public GameObject target;
+  public GameObject motionTarget;
 
   private StringBuilder sb;
+  private bool triggerFlag;
   // Start is called before the first frame update
   void Start()
   {
-    sb = new StringBuilder("time, px, py, pz, rx, ry, rz");
+    sb = new StringBuilder("time, px, py, pz, rx, ry, rz, collision");
   }
 
   // Update is called once per frame
@@ -26,12 +27,14 @@ public class ExportTrajectory : MonoBehaviour
   {
     sb.Append('\n')
       .Append(Time.fixedTimeAsDouble).Append(", ")
-      .Append(target.transform.position.x).Append(", ")
-      .Append(target.transform.position.y).Append(", ")
-      .Append(target.transform.position.z).Append(", ")
-      .Append(target.transform.rotation.x).Append(", ")
-      .Append(target.transform.rotation.y).Append(", ")
-      .Append(target.transform.rotation.z);
+      .Append(motionTarget.transform.position.x).Append(", ")
+      .Append(motionTarget.transform.position.y).Append(", ")
+      .Append(motionTarget.transform.position.z).Append(", ")
+      .Append(motionTarget.transform.rotation.x).Append(", ")
+      .Append(motionTarget.transform.rotation.y).Append(", ")
+      .Append(motionTarget.transform.rotation.z).Append(", ")
+      .Append(triggerFlag);
+    triggerFlag = false;
   }
 
   private void OnDestroy()
@@ -43,5 +46,11 @@ public class ExportTrajectory : MonoBehaviour
     {
       writer.Write(sb.ToString());
     }
+  }
+
+  private void OnTriggerStay(Collider other)
+  {
+    triggerFlag = true;
+    Debug.Log("Trigger enter: " + other.gameObject.name);
   }
 }
