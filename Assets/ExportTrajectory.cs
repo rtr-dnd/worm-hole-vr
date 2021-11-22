@@ -15,7 +15,7 @@ public class ExportTrajectory : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    sb = new StringBuilder("time, px, py, pz, rx, ry, rz, collision");
+    sb = new StringBuilder("time, px, py, pz, rx, ry, rz, eulerx, eulery, eulerz, collision");
     isLogging = false;
   }
 
@@ -49,6 +49,9 @@ public class ExportTrajectory : MonoBehaviour
         .Append(motionTarget.transform.rotation.x).Append(", ")
         .Append(motionTarget.transform.rotation.y).Append(", ")
         .Append(motionTarget.transform.rotation.z).Append(", ")
+        .Append(motionTarget.transform.eulerAngles.x).Append(", ")
+        .Append(motionTarget.transform.eulerAngles.y).Append(", ")
+        .Append(motionTarget.transform.eulerAngles.z).Append(", ")
         .Append(triggerFlag);
       triggerFlag = false;
     }
