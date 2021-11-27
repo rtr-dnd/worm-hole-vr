@@ -41,6 +41,7 @@ public class ExportTrajectory : MonoBehaviour
 
     if (isLogging)
     {
+      Debug.Log("logging");
       sb.Append('\n')
         .Append(Time.fixedTimeAsDouble).Append(", ")
         .Append(motionTarget.transform.position.x).Append(", ")
