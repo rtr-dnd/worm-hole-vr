@@ -46,8 +46,8 @@ void loop() {
   switchs[4].update();
   int switch_id = handleSwitchs();
   if (switch_id > -1){
-    Serial.print("switch : ");
-    Serial.println(switch_id);
+    // Serial.print("switch : ");
+    // Serial.println(switch_id);
   }
 
   if (!digitalRead(RESET_PIN)){
@@ -69,9 +69,13 @@ int handleSwitchs() {
       if (!currentState) {
         if (prevState[i]) {
           Keyboard.press(ascii_table[i]);
+          // Serial.print("press");
+          // Serial.println(i);
           return i;
         }
       } else {
+        // Serial.print("release");
+        // Serial.println(i);
         Keyboard.release(ascii_table[i]);
       }
       prevState[i] = currentState;
