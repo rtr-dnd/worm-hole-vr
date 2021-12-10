@@ -28,11 +28,11 @@ public class TaskManager : MonoBehaviour
       {
         case "r":
           Debug.Log("r subtle");
-          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
+          RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 0.1f);
           break;
         case "v":
           Debug.Log("v subtle");
-          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 45, 0);
+          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(-20, 0, 0);
           break;
         default:
           RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 0);
@@ -46,11 +46,11 @@ public class TaskManager : MonoBehaviour
       {
         case "r":
           Debug.Log("r overt");
-          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
+          RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 1f);
           break;
         case "v":
           Debug.Log("v overt");
-          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 45, 0);
+          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(-45, 0, 0);
           break;
         default:
           RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 0);
