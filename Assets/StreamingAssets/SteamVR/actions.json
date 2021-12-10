@@ -157,6 +157,14 @@
     {
       "controller_type": "vive_tracker_right_shoulder",
       "binding_url": "application_generated_unity_wormhole_exe_binding_vive_tracker_right_shoulder.json"
+    },
+    {
+      "controller_type": "vive_tracker_left_foot",
+      "binding_url": "application_generated_unity_wormhole_exe_binding_vive_tracker_left_foot.json"
+    },
+    {
+      "controller_type": "vive_tracker_right_foot",
+      "binding_url": "application_generated_unity_wormhole_exe_binding_vive_tracker_right_foot.json"
     }
   ],
   "localization": [

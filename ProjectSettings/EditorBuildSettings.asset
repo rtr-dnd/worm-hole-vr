@@ -5,24 +5,33 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Experiment1/Task1Normal.unity
     guid: 0981dde776c9452408c62a6b8bdc53c8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Experiment1/Task1Worm.unity
     guid: 33b165e3cdc364f4f940778e76bc95ec
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Experiment1/Task2Normal.unity
     guid: bc99419fb1729a342873bd844bf99f2a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Experiment1/Task2Worm.unity
     guid: 5b42b0f5886393546bf086ea65f042ff
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Experiment1/Task3Normal.unity
     guid: 18df8dd9caa6a9342b261c5163e858bc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Experiment1/Task3Worm.unity
     guid: 8266ead3f292ef841a0a2102f3ec1a7e
+  - enabled: 1
+    path: Assets/Scenes/Experiment2/ParentScene.unity
+    guid: 3699bf1304f16174288eed0b72ace992
+  - enabled: 1
+    path: Assets/Scenes/Experiment2/TaskWorm.unity
+    guid: 95b8bbf55eda38f4ba7469ddcb1d3a67
+  - enabled: 1
+    path: Assets/Scenes/Experiment2/Evaluation.unity
+    guid: 959e18af557489f4ebc18094e39d6af7
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 27ee43808ee4b7342b32675d8e0abf86, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 10f6f057d250adc41960a7e010600f22, type: 2}
