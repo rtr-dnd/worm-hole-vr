@@ -29,6 +29,7 @@ public class SubmitAction : MonoBehaviour
     // record answer
     // todo: write log
     SceneContextHolder.progress[SceneContextHolder.currentCondition] += 1;
+
     if (SceneContextHolder.progress.Sum() >= SceneContextHolder.conditionNum * SceneContextHolder.trialNum)
     {
       Debug.Log("experiment complete");
