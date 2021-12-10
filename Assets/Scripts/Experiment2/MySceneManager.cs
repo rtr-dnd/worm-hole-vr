@@ -6,14 +6,19 @@ using UnityEngine.SceneManagement;
 public class MySceneManager : MonoBehaviour
 {
   public string axis;
+  public int trialNum;
+  public int conditionNum;
   public GameObject shoulderTracker;
   private string firstSceneName;
   // Start is called before the first frame update
   void Start()
   {
     SceneContextHolder.axis = axis;
-    SceneContextHolder.currentCondition = UnityEngine.Random.Range(0, 3);
-    if (SceneContextHolder.currentCondition < 2)
+    SceneContextHolder.trialNum = trialNum;
+    SceneContextHolder.conditionNum = conditionNum;
+
+    SceneContextHolder.currentCondition = UnityEngine.Random.Range(0, conditionNum);
+    if (SceneContextHolder.currentCondition < (conditionNum / 2)) // first half is worm, latter half is redirection
     {
       firstSceneName = "TaskWorm";
     }
@@ -21,7 +26,7 @@ public class MySceneManager : MonoBehaviour
     {
       firstSceneName = "TaskRedirection";
     }
-    SceneContextHolder.progress = new int[4];
+    SceneContextHolder.progress = new int[conditionNum];
     // Invoke("RecordShoulder", 1f);
     // Invoke("ChangeScene", 2f);
   }
@@ -47,6 +52,8 @@ public class MySceneManager : MonoBehaviour
 public static class SceneContextHolder
 {
   public static string axis { get; set; }
+  public static int trialNum { get; set; }
+  public static int conditionNum { get; set; }
   // conditions: [ws, wo, rs, ro]
   public static int currentCondition { get; set; }
   public static int[] progress { get; set; }

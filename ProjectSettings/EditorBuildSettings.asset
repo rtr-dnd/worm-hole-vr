@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Experiment2/TaskWorm.unity
     guid: 95b8bbf55eda38f4ba7469ddcb1d3a67
   - enabled: 1
+    path: Assets/Scenes/Experiment2/TaskRedirection.unity
+    guid: 4d016e5322a2194428b13b4e5019c39f
+  - enabled: 1
     path: Assets/Scenes/Experiment2/Evaluation.unity
     guid: 959e18af557489f4ebc18094e39d6af7
   m_configObjects:
