@@ -39,12 +39,14 @@ public class DisplaceVirtual : MonoBehaviour
     );
 
     relativeRot = Quaternion.Inverse(VirtualHole.transform.rotation) * RealHole.transform.rotation;
+    Debug.Log(relativeRot.eulerAngles);
     chairMat =
     Matrix4x4.Translate(VirtualHole.transform.position - RealHole.transform.position) // real to virtual translation
     * Matrix4x4.TRS(
         RealHole.transform.position,
-        Quaternion.FromToRotation(RealHole.transform.forward, VirtualHole.transform.forward),
+        // Quaternion.FromToRotation(RealHole.transform.forward, VirtualHole.transform.forward),
         // new Quaternion(relativeRot[2], relativeRot[0], relativeRot[1]),
+        Quaternion.Euler(-relativeRot.eulerAngles.z, relativeRot.eulerAngles.x, relativeRot.eulerAngles.y),
         // Quaternion.Euler(new Vector3(0f, 90f, 0f)),
         Vector3.one
     ) // translation back to real hole and rotation around real hole
