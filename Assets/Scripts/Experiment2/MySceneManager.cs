@@ -29,6 +29,8 @@ public class MySceneManager : MonoBehaviour
       firstSceneName = "TaskRedirection";
     }
     SceneContextHolder.progress = new int[conditionNum];
+    SceneContextHolder.buttonProgress = new int[conditionNum, 5];
+    SceneContextHolder.currentButton = UnityEngine.Random.Range(0, 5);
     // Invoke("RecordShoulder", 1f);
     // Invoke("ChangeScene", 2f);
   }
@@ -60,5 +62,7 @@ public static class SceneContextHolder
   // conditions: [ws, wo, rs, ro]
   public static int currentCondition { get; set; }
   public static int[] progress { get; set; }
+  public static int[,] buttonProgress { get; set; }
+  public static int currentButton { get; set; }
   public static Vector3 shoulderPosition { get; set; }
 }
