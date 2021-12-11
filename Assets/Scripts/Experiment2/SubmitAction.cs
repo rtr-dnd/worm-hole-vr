@@ -38,10 +38,11 @@ public class SubmitAction : MonoBehaviour
     using (var writer = new StreamWriter(filePath, true))
     {
       // axis, condition, trial, q0, q1, q2, q3
-      writer.Write($"{SceneContextHolder.axis},{SceneContextHolder.currentCondition},{SceneContextHolder.progress[SceneContextHolder.currentCondition]},{t0.name},{t1.name},{t2.name},{t3.name}\n");
+      writer.Write($"{SceneContextHolder.axis},{SceneContextHolder.currentCondition},{SceneContextHolder.progress[SceneContextHolder.currentCondition]},{SceneContextHolder.currentButton},{t0.name},{t1.name},{t2.name},{t3.name}\n");
       Debug.Log("written results");
     }
     SceneContextHolder.progress[SceneContextHolder.currentCondition] += 1;
+    SceneContextHolder.buttonProgress[SceneContextHolder.currentCondition, SceneContextHolder.currentButton] += 1;
 
     if (SceneContextHolder.progress.Sum() >= SceneContextHolder.conditionNum * SceneContextHolder.trialNum)
     {
@@ -50,12 +51,13 @@ public class SubmitAction : MonoBehaviour
       return;
     }
 
+    // determine condition
     bool hasDecidedCondition = false;
     int nextCondition = 0;
-    int temp = 0;
+    int tempCondition = 0;
     while (!hasDecidedCondition)
     {
-      if (temp > 100)
+      if (tempCondition > 100)
       {
         Debug.Log("too many loops");
         hasDecidedCondition = true;
@@ -69,11 +71,39 @@ public class SubmitAction : MonoBehaviour
       }
       else
       {
-        temp++;
+        tempCondition++;
         continue;
       }
     }
     SceneContextHolder.currentCondition = nextCondition;
+
+    // determine button
+    bool hasDecidedButton = false;
+    int nextButton = 0;
+    int tempButton = 0;
+    while (!hasDecidedButton)
+    {
+      if (tempButton > 100)
+      {
+        Debug.Log("too many loops");
+        hasDecidedButton = true;
+      }
+      nextButton = UnityEngine.Random.Range(0, 5);
+      Debug.Log("how about " + nextButton);
+      Debug.Log("button progress is " + SceneContextHolder.buttonProgress[nextCondition, nextButton]);
+      if (SceneContextHolder.buttonProgress[nextCondition, nextButton] < SceneContextHolder.trialNum / 5)
+      {
+        hasDecidedButton = true;
+      }
+      else
+      {
+        tempButton++;
+        continue;
+      }
+    }
+    SceneContextHolder.currentButton = nextButton;
+
+
 
     // load next scene
     if (nextCondition < (SceneContextHolder.conditionNum / 2))

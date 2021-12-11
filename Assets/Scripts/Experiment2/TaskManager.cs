@@ -80,12 +80,15 @@ public class TaskManager : MonoBehaviour
   void initializeDisplacement()
   {
     // set origin to shoulder position
+    Vector3 shoulderDisplace = SceneContextHolder.shoulderPosition - RealToVirtualDisplacement.transform.position;
+    // RealToVirtualDisplacement.transform.position += shoulderDisplace;
     RealToVirtualDisplacement.transform.position = SceneContextHolder.shoulderPosition;
     // undo offset for children
     for (int a = 0; a < RealToVirtualDisplacement.transform.childCount; a++)
     {
-      RealToVirtualDisplacement.transform.GetChild(a).position -= SceneContextHolder.shoulderPosition;
+      RealToVirtualDisplacement.transform.GetChild(a).position -= shoulderDisplace;
     }
+    RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
 
     if (SceneContextHolder.currentCondition % 2 == 0)
     {
@@ -94,16 +97,13 @@ public class TaskManager : MonoBehaviour
       {
         case "r":
           Debug.Log("r subtle");
-          RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 0.1f);
-          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
+          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.1f);
           break;
         case "v":
           Debug.Log("v subtle");
-          RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 0);
           RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(-20, 0, 0);
           break;
         default:
-          RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 0);
           break;
       }
     }
@@ -114,16 +114,13 @@ public class TaskManager : MonoBehaviour
       {
         case "r":
           Debug.Log("r overt");
-          RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 1f);
-          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
+          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 1f);
           break;
         case "v":
           Debug.Log("v overt");
-          RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 0);
           RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(-45, 0, 0);
           break;
         default:
-          RealToVirtualDisplacement.transform.position = new Vector3(0, 0, 0);
           break;
       }
     }

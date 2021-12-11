@@ -10,6 +10,7 @@ public class MySceneManager : MonoBehaviour
   public int conditionNum;
   public GameObject shoulderTracker;
   private string firstSceneName;
+  private bool hasSetShoulder;
   // Start is called before the first frame update
   void Start()
   {
@@ -40,11 +41,19 @@ public class MySceneManager : MonoBehaviour
     if (Input.GetKeyDown("r"))
     {
       SceneContextHolder.shoulderPosition = shoulderTracker.transform.position;
+      hasSetShoulder = true;
       Debug.Log("recorded shoulder position: " + SceneContextHolder.shoulderPosition);
     }
     if (Input.GetKeyDown("n"))
     {
-      SceneManager.LoadScene(firstSceneName);
+      if (!hasSetShoulder)
+      {
+        Debug.Log("shoulder potentially not recorded");
+      }
+      else
+      {
+        SceneManager.LoadScene(firstSceneName);
+      }
     }
   }
   void ChangeScene()
