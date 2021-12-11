@@ -13,6 +13,8 @@ public class MySceneManager : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
+    System.DateTime centuryBegin = new System.DateTime(2001, 1, 1);
+    SceneContextHolder.timeStamp = System.DateTime.Now.Ticks - centuryBegin.Ticks;
     SceneContextHolder.axis = axis;
     SceneContextHolder.trialNum = trialNum;
     SceneContextHolder.conditionNum = conditionNum;
@@ -51,6 +53,7 @@ public class MySceneManager : MonoBehaviour
 
 public static class SceneContextHolder
 {
+  public static long timeStamp;
   public static string axis { get; set; }
   public static int trialNum { get; set; }
   public static int conditionNum { get; set; }

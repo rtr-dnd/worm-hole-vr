@@ -4,30 +4,43 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System.IO;
 
 public class SubmitAction : MonoBehaviour
 {
   public GameObject CompleteMsg;
+  public string filePrefix;
+  ToggleGroup q0;
   ToggleGroup q1;
   ToggleGroup q2;
+  ToggleGroup q3;
 
   // Start is called before the first frame update
   void Start()
   {
+    q0 = this.gameObject.transform.Find("Q0").transform.Find("Group").GetComponent<ToggleGroup>();
     q1 = this.gameObject.transform.Find("Q1").transform.Find("Group").GetComponent<ToggleGroup>();
     q2 = this.gameObject.transform.Find("Q2").transform.Find("Group").GetComponent<ToggleGroup>();
+    q3 = this.gameObject.transform.Find("Q3").transform.Find("Group").GetComponent<ToggleGroup>();
   }
 
   // Update is called once per frame
   public void Submit()
   {
+    Toggle t0 = q0.ActiveToggles().FirstOrDefault();
     Toggle t1 = q1.ActiveToggles().FirstOrDefault();
     Toggle t2 = q2.ActiveToggles().FirstOrDefault();
-    Debug.Log("Q1: " + t1.name);
-    Debug.Log("Q2: " + t2.name);
+    Toggle t3 = q3.ActiveToggles().FirstOrDefault();
 
     // record answer
-    // todo: write log
+    var folder = Application.persistentDataPath;
+    var filePath = Path.Combine(folder, filePrefix + (SceneContextHolder.timeStamp) + ".csv");
+    using (var writer = new StreamWriter(filePath, true))
+    {
+      // axis, condition, trial, q0, q1, q2, q3
+      writer.Write($"{SceneContextHolder.axis},{SceneContextHolder.currentCondition},{SceneContextHolder.progress[SceneContextHolder.currentCondition]},{t0.name},{t1.name},{t2.name},{t3.name}\n");
+      Debug.Log("written results");
+    }
     SceneContextHolder.progress[SceneContextHolder.currentCondition] += 1;
 
     if (SceneContextHolder.progress.Sum() >= SceneContextHolder.conditionNum * SceneContextHolder.trialNum)
