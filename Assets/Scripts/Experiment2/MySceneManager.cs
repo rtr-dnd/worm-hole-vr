@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MySceneManager : MonoBehaviour
 {
+  public string filePrefix;
   public string axis;
   public int trialNum;
   public int conditionNum;
@@ -16,6 +17,7 @@ public class MySceneManager : MonoBehaviour
   {
     System.DateTime centuryBegin = new System.DateTime(2001, 1, 1);
     SceneContextHolder.timeStamp = System.DateTime.Now.Ticks - centuryBegin.Ticks;
+    SceneContextHolder.filePrefix = filePrefix;
     SceneContextHolder.axis = axis;
     SceneContextHolder.trialNum = trialNum;
     SceneContextHolder.conditionNum = conditionNum;
@@ -65,6 +67,7 @@ public class MySceneManager : MonoBehaviour
 public static class SceneContextHolder
 {
   public static long timeStamp;
+  public static string filePrefix;
   public static string axis { get; set; }
   public static int trialNum { get; set; }
   public static int conditionNum { get; set; }

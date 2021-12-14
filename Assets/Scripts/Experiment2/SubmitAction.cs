@@ -9,7 +9,6 @@ using System.IO;
 public class SubmitAction : MonoBehaviour
 {
   public GameObject CompleteMsg;
-  public string filePrefix;
   ToggleGroup q0;
   ToggleGroup q1;
   ToggleGroup q2;
@@ -34,7 +33,7 @@ public class SubmitAction : MonoBehaviour
 
     // record answer
     var folder = Application.persistentDataPath;
-    var filePath = Path.Combine(folder, filePrefix + (SceneContextHolder.timeStamp) + ".csv");
+    var filePath = Path.Combine(folder, SceneContextHolder.filePrefix + (SceneContextHolder.timeStamp) + ".csv");
     using (var writer = new StreamWriter(filePath, true))
     {
       // axis, condition, trial, q0, q1, q2, q3

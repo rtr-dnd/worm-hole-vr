@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class TaskManager : MonoBehaviour
 {
@@ -9,20 +11,24 @@ public class TaskManager : MonoBehaviour
   public GameObject marker;
   public GameObject hitArea;
   public GameObject props;
+  public GameObject rightHand;
   public Material targetMaterial;
   public Material completeMaterial;
   public Material markerActiveMaterial;
   public Material markerInactiveMaterial;
   private Renderer targetBasebaseRenderer;
+  private StringBuilder sb;
 
   // 0: init, 1: hand placed, 2: reaching, 3: button pressed, 4: task completed
   private int state = 0;
+  private int pressedButton = -1;
   // Start is called before the first frame update
   void Start()
   {
     Debug.Log(SceneContextHolder.axis);
     Debug.Log(SceneContextHolder.currentCondition);
     Debug.Log(SceneContextHolder.progress);
+    sb = new StringBuilder("time, px, py, pz, rx, ry, rz, eulerx, eulery, eulerz, state, pressedButton");
 
     initializeDisplacement();
     initializeProps();
@@ -70,10 +76,61 @@ public class TaskManager : MonoBehaviour
         Invoke("nextScene", 1f);
         break;
     }
+
+    if (Input.GetKeyDown("0"))
+    {
+      pressedButton = 0;
+    }
+    else if (Input.GetKeyDown("1"))
+    {
+      pressedButton = 1;
+    }
+    else if (Input.GetKeyDown("2"))
+    {
+      pressedButton = 2;
+    }
+    else if (Input.GetKeyDown("3"))
+    {
+      pressedButton = 3;
+    }
+    else if (Input.GetKeyDown("4"))
+    {
+      pressedButton = 4;
+    }
+    else
+    {
+      pressedButton = -1;
+    }
+
+
+    sb.Append('\n')
+      .Append(Time.fixedTimeAsDouble).Append(", ")
+      .Append(rightHand.transform.position.x).Append(", ")
+      .Append(rightHand.transform.position.y).Append(", ")
+      .Append(rightHand.transform.position.z).Append(", ")
+      .Append(rightHand.transform.rotation.x).Append(", ")
+      .Append(rightHand.transform.rotation.y).Append(", ")
+      .Append(rightHand.transform.rotation.z).Append(", ")
+      .Append(rightHand.transform.eulerAngles.x).Append(", ")
+      .Append(rightHand.transform.eulerAngles.y).Append(", ")
+      .Append(rightHand.transform.eulerAngles.z).Append(", ")
+      .Append(state).Append(", ")
+      .Append(pressedButton);
   }
 
   void nextScene()
   {
+    var folder = Application.persistentDataPath;
+    // axis, condition, trial, button
+    if (SceneContextHolder.progress != null)
+    {
+      var filePath = Path.Combine(folder, $"{SceneContextHolder.filePrefix}_{SceneContextHolder.timeStamp}_{SceneContextHolder.axis}_{SceneContextHolder.currentCondition}_{SceneContextHolder.progress[SceneContextHolder.currentCondition]}_{SceneContextHolder.currentButton}.csv");
+      using (var writer = new StreamWriter(filePath, false))
+      {
+        writer.Write(sb.ToString());
+        Debug.Log("written results");
+      }
+    }
     SceneManager.LoadScene("Evaluation");
   }
 
@@ -104,6 +161,7 @@ public class TaskManager : MonoBehaviour
           RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(-20, 0, 0);
           break;
         default:
+          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.1f);
           break;
       }
     }
@@ -121,6 +179,7 @@ public class TaskManager : MonoBehaviour
           RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(-45, 0, 0);
           break;
         default:
+          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.1f);
           break;
       }
     }
