@@ -78,7 +78,8 @@ namespace HR_Toolkit
             // compute the warping ratio
             a = Mathf.Max(0, Mathf.Min(1, (Vector3.Dot((wT - w0), (pH - w0))) / Vector3.Dot(wT - w0, wT - w0)));
             // compute the new position
-            var w = a * _t;
+            var temp_t = target.GetVirtualTargetPos() - target.GetRealTargetPos();
+            var w = a * temp_t;
             // apply the warp to the virtual hand
             virtualHandPos.position = pH + w;
         }
