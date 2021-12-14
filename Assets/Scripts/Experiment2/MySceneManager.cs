@@ -48,14 +48,7 @@ public class MySceneManager : MonoBehaviour
     }
     if (Input.GetKeyDown("n"))
     {
-      if (!hasSetShoulder)
-      {
-        Debug.Log("shoulder potentially not recorded");
-      }
-      else
-      {
-        SceneManager.LoadScene(firstSceneName);
-      }
+      SceneManager.LoadScene(firstSceneName);
     }
   }
   void ChangeScene()

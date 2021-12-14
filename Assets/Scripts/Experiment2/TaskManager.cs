@@ -36,10 +36,7 @@ public class TaskManager : MonoBehaviour
     Debug.Log(SceneContextHolder.progress);
     sb = new StringBuilder("time, state, pressedButton, markerIsActive, pxRightReal, pyRightReal, pzRightReal, rxRightReal, ryRightReal, rzRightReal, eulerxRightReal, euleryRightReal, eulerzRightReal, pxRightVirtual, pyRightVirtual, pzRightVirtual, rxRightVirtual, ryRightVirtual, rzRightVirtual, eulerxRightVirtual, euleryRightVirtual, eulerzRightVirtual, pxLeftReal, pyLeftReal, pzLeftReal, rxLeftReal, ryLeftReal, rzLeftReal, eulerxLeftReal, euleryLeftReal, eulerzLeftReal, pxLeftVirtual, pyLeftVirtual, pzLeftVirtual, rxLeftVirtual, ryLeftVirtual, rzLeftVirtual, eulerxLeftVirtual, euleryLeftVirtual, eulerzLeftVirtual, pxHead, pyHead, pzHead, rxHead, ryHead, rzHead, eulerxHead, euleryHead, eulerzHead\n");
 
-    headPositionOnStart = head.transform.position;
-
-    initializeDisplacement();
-    initializeProps();
+    Invoke("initializeHead", 1f);
   }
 
   // Update is called once per frame
@@ -161,6 +158,14 @@ public class TaskManager : MonoBehaviour
     SceneManager.LoadScene("Evaluation");
   }
 
+  void initializeHead()
+  {
+    headPositionOnStart = head.transform.position;
+    Debug.Log("head set at " + headPositionOnStart);
+
+    initializeDisplacement();
+    initializeProps();
+  }
   void initializeDisplacement()
   {
     // set origin to head position
