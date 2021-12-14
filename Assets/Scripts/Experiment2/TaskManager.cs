@@ -11,13 +11,19 @@ public class TaskManager : MonoBehaviour
   public GameObject marker;
   public GameObject hitArea;
   public GameObject props;
-  public GameObject rightHand;
+  public GameObject rightHandReal;
+  public GameObject rightHandVirtual;
+  public GameObject leftHandReal;
+  public GameObject leftHandVirtual;
+  public GameObject head;
   public Material targetMaterial;
   public Material completeMaterial;
   public Material markerActiveMaterial;
   public Material markerInactiveMaterial;
   private Renderer targetBasebaseRenderer;
   private StringBuilder sb;
+  private Vector3 headPositionOnStart;
+  private bool markerIsActive;
 
   // 0: init, 1: hand placed, 2: reaching, 3: button pressed, 4: task completed
   private int state = 0;
@@ -28,7 +34,9 @@ public class TaskManager : MonoBehaviour
     Debug.Log(SceneContextHolder.axis);
     Debug.Log(SceneContextHolder.currentCondition);
     Debug.Log(SceneContextHolder.progress);
-    sb = new StringBuilder("time, px, py, pz, rx, ry, rz, eulerx, eulery, eulerz, state, pressedButton");
+    sb = new StringBuilder("time, state, pressedButton, markerIsActive, pxRightReal, pyRightReal, pzRightReal, rxRightReal, ryRightReal, rzRightReal, eulerxRightReal, euleryRightReal, eulerzRightReal, pxRightVirtual, pyRightVirtual, pzRightVirtual, rxRightVirtual, ryRightVirtual, rzRightVirtual, eulerxRightVirtual, euleryRightVirtual, eulerzRightVirtual, pxLeftReal, pyLeftReal, pzLeftReal, rxLeftReal, ryLeftReal, rzLeftReal, eulerxLeftReal, euleryLeftReal, eulerzLeftReal, pxLeftVirtual, pyLeftVirtual, pzLeftVirtual, rxLeftVirtual, ryLeftVirtual, rzLeftVirtual, eulerxLeftVirtual, euleryLeftVirtual, eulerzLeftVirtual, pxHead, pyHead, pzHead, rxHead, ryHead, rzHead, eulerxHead, euleryHead, eulerzHead\n");
+
+    headPositionOnStart = head.transform.position;
 
     initializeDisplacement();
     initializeProps();
@@ -37,21 +45,22 @@ public class TaskManager : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    marker.GetComponent<Renderer>().material = hitArea.GetComponent<CollidingObject>().isTouching
+    markerIsActive = hitArea.GetComponent<CollidingObject>().isTouching;
+    marker.GetComponent<Renderer>().material = markerIsActive
         ? markerActiveMaterial
         : markerInactiveMaterial;
 
     switch (state)
     {
       case 0:
-        if (hitArea.GetComponent<CollidingObject>().isTouching)
+        if (markerIsActive)
         {
           Debug.Log("state 0 => 1: ready, set");
           state = 1;
         }
         break;
       case 1:
-        if (!hitArea.GetComponent<CollidingObject>().isTouching)
+        if (!markerIsActive)
         {
           Debug.Log("state 1 => 2: go");
           state = 2;
@@ -66,9 +75,9 @@ public class TaskManager : MonoBehaviour
         }
         break;
       case 3:
-        if (hitArea.GetComponent<CollidingObject>().isTouching)
+        if (markerIsActive)
         {
-          Debug.Log("state 3 => 4: button pressed");
+          Debug.Log("state 3 => 4: marker touched");
           state = 4;
         }
         break;
@@ -77,7 +86,13 @@ public class TaskManager : MonoBehaviour
         break;
     }
 
-    if (Input.GetKeyDown("0"))
+    if (Input.GetKeyDown("r"))
+    {
+      state = 0;
+      headPositionOnStart = head.transform.position;
+      targetBasebaseRenderer.material = targetMaterial;
+    }
+    else if (Input.GetKeyDown("0"))
     {
       pressedButton = 0;
     }
@@ -105,17 +120,29 @@ public class TaskManager : MonoBehaviour
 
     sb.Append('\n')
       .Append(Time.fixedTimeAsDouble).Append(", ")
-      .Append(rightHand.transform.position.x).Append(", ")
-      .Append(rightHand.transform.position.y).Append(", ")
-      .Append(rightHand.transform.position.z).Append(", ")
-      .Append(rightHand.transform.rotation.x).Append(", ")
-      .Append(rightHand.transform.rotation.y).Append(", ")
-      .Append(rightHand.transform.rotation.z).Append(", ")
-      .Append(rightHand.transform.eulerAngles.x).Append(", ")
-      .Append(rightHand.transform.eulerAngles.y).Append(", ")
-      .Append(rightHand.transform.eulerAngles.z).Append(", ")
       .Append(state).Append(", ")
-      .Append(pressedButton);
+      .Append(pressedButton).Append(", ")
+      .Append(markerIsActive).Append(", ")
+      .Append(logOf(rightHandReal)).Append(", ")
+      .Append(logOf(rightHandVirtual)).Append(", ")
+      .Append(logOf(leftHandReal)).Append(", ")
+      .Append(logOf(leftHandVirtual)).Append(", ")
+      .Append(logOf(head));
+  }
+
+  string logOf(GameObject obj)
+  {
+    return (
+        obj.transform.position.x + ", "
+        + obj.transform.position.y + ", "
+        + obj.transform.position.z + ", "
+        + obj.transform.rotation.x + ", "
+        + obj.transform.rotation.y + ", "
+        + obj.transform.rotation.z + ", "
+        + obj.transform.eulerAngles.x + ", "
+        + obj.transform.eulerAngles.y + ", "
+        + obj.transform.eulerAngles.z
+        );
   }
 
   void nextScene()
@@ -136,14 +163,13 @@ public class TaskManager : MonoBehaviour
 
   void initializeDisplacement()
   {
-    // set origin to shoulder position
-    Vector3 shoulderDisplace = SceneContextHolder.shoulderPosition - RealToVirtualDisplacement.transform.position;
-    // RealToVirtualDisplacement.transform.position += shoulderDisplace;
-    RealToVirtualDisplacement.transform.position = SceneContextHolder.shoulderPosition;
+    // set origin to head position
+    Vector3 headDisplace = headPositionOnStart - RealToVirtualDisplacement.transform.position;
+    RealToVirtualDisplacement.transform.position = headPositionOnStart;
     // undo offset for children
     for (int a = 0; a < RealToVirtualDisplacement.transform.childCount; a++)
     {
-      RealToVirtualDisplacement.transform.GetChild(a).position -= shoulderDisplace;
+      RealToVirtualDisplacement.transform.GetChild(a).position -= headDisplace;
     }
     RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
 
@@ -160,8 +186,12 @@ public class TaskManager : MonoBehaviour
           Debug.Log("v subtle");
           RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(-20, 0, 0);
           break;
+        case "h":
+          Debug.Log("h subtle");
+          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 20, 0);
+          break;
         default:
-          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.1f);
+          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.3f);
           break;
       }
     }
@@ -178,8 +208,12 @@ public class TaskManager : MonoBehaviour
           Debug.Log("v overt");
           RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(-45, 0, 0);
           break;
+        case "h":
+          Debug.Log("h overt");
+          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 45, 0);
+          break;
         default:
-          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.1f);
+          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.3f);
           break;
       }
     }
