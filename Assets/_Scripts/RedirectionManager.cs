@@ -32,6 +32,7 @@ namespace HR_Toolkit
     /// be set to the hand's real position on the start of each redirection
     /// </summary>
     public GameObject warpOrigin;
+    public int initialTargetIndex = 0;
     /// <summary>
     /// Reset Position is set in each RedirectionTechnique.
     /// The ResetPosition is used between two redirections. Instead of redirecting from one target to another target,
@@ -164,7 +165,7 @@ namespace HR_Toolkit
 
     private void initialRedirection()
     {
-      target = GetNextTarget();
+      target = allRedirectedPrefabs[initialTargetIndex];
       UpdateWarpOrigin();
       if (target != null)
       {

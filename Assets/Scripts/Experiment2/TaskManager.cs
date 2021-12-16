@@ -4,10 +4,12 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using HR_Toolkit;
 
 public class TaskManager : MonoBehaviour
 {
   public GameObject RealToVirtualDisplacement;
+  public GameObject redirectionManager;
   public GameObject marker;
   public GameObject hitArea;
   public GameObject props;
@@ -35,6 +37,11 @@ public class TaskManager : MonoBehaviour
     Debug.Log(SceneContextHolder.currentCondition);
     Debug.Log(SceneContextHolder.progress);
     sb = new StringBuilder("time, state, pressedButton, markerIsActive, pxRightReal, pyRightReal, pzRightReal, rxRightReal, ryRightReal, rzRightReal, eulerxRightReal, euleryRightReal, eulerzRightReal, pxRightVirtual, pyRightVirtual, pzRightVirtual, rxRightVirtual, ryRightVirtual, rzRightVirtual, eulerxRightVirtual, euleryRightVirtual, eulerzRightVirtual, pxLeftReal, pyLeftReal, pzLeftReal, rxLeftReal, ryLeftReal, rzLeftReal, eulerxLeftReal, euleryLeftReal, eulerzLeftReal, pxLeftVirtual, pyLeftVirtual, pzLeftVirtual, rxLeftVirtual, ryLeftVirtual, rzLeftVirtual, eulerxLeftVirtual, euleryLeftVirtual, eulerzLeftVirtual, pxHead, pyHead, pzHead, rxHead, ryHead, rzHead, eulerxHead, euleryHead, eulerzHead\n");
+
+    if (redirectionManager != null)
+    {
+      redirectionManager.GetComponent<RedirectionManager>().initialTargetIndex = SceneContextHolder.currentButton;
+    }
 
     Invoke("initializeHead", 0.5f);
   }
