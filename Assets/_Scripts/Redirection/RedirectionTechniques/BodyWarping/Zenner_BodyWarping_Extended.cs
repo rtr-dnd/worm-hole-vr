@@ -65,5 +65,7 @@ public class Zenner_BodyWarping_Extended : BodyWarping
         var gain = Zenner_BodyWarping.GainWarp(warp, warpOrigin.position, this.gainFactor);
         // apply it to virtual hand
         virtualHandPos.position = gain;
+        // virtualHandPos.Rotate(0, redirectionAngleAlpha, 0);
+        virtualHandPos.RotateAround(virtualHandPos.position, _plane.normal, redirectionAngleAlpha);
     }
 }
