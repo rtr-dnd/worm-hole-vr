@@ -33,11 +33,11 @@ public class SubmitAction : MonoBehaviour
 
     // record answer
     var folder = Application.persistentDataPath;
-    var filePath = Path.Combine(folder, SceneContextHolder.filePrefix + (SceneContextHolder.timeStamp) + ".csv");
+    var filePath = Path.Combine(folder, SceneContextHolder.filePrefix + "_" + (SceneContextHolder.timeStamp) + ".csv");
     using (var writer = new StreamWriter(filePath, true))
     {
-      // axis, condition, trial, q0, q1, q2, q3
-      writer.Write($"{SceneContextHolder.axis},{SceneContextHolder.currentCondition},{SceneContextHolder.progress[SceneContextHolder.currentCondition]},{SceneContextHolder.currentButton},{t0.name},{t1.name},{t2.name},{t3.name}\n");
+      // axis, condition, button, trial, q0, q1, q2, q3
+      writer.Write($"{SceneContextHolder.axis},{SceneContextHolder.currentCondition},{SceneContextHolder.currentButton},{SceneContextHolder.progress[SceneContextHolder.currentCondition]},{SceneContextHolder.currentButton},{t0.name},{t1.name},{t2.name},{t3.name}\n");
       Debug.Log("written results");
     }
     SceneContextHolder.progress[SceneContextHolder.currentCondition] += 1;
@@ -56,7 +56,7 @@ public class SubmitAction : MonoBehaviour
     int tempCondition = 0;
     while (!hasDecidedCondition)
     {
-      if (tempCondition > 100)
+      if (tempCondition > 1000)
       {
         Debug.Log("too many loops");
         hasDecidedCondition = true;
@@ -82,7 +82,7 @@ public class SubmitAction : MonoBehaviour
     int tempButton = 0;
     while (!hasDecidedButton)
     {
-      if (tempButton > 100)
+      if (tempButton > 1000)
       {
         Debug.Log("too many loops");
         hasDecidedButton = true;
@@ -102,7 +102,7 @@ public class SubmitAction : MonoBehaviour
     }
     SceneContextHolder.currentButton = nextButton;
 
-
+    Debug.Log("this is " + SceneContextHolder.progress.Sum() + "th time");
 
     // load next scene
     if (nextCondition < (SceneContextHolder.conditionNum / 2))

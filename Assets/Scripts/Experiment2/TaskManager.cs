@@ -22,6 +22,7 @@ public class TaskManager : MonoBehaviour
   public Material completeMaterial;
   public Material markerActiveMaterial;
   public Material markerInactiveMaterial;
+  public bool isExplaining;
   private Renderer targetBasebaseRenderer;
   private StringBuilder sb;
   private Vector3 headPositionOnStart;
@@ -185,14 +186,18 @@ public class TaskManager : MonoBehaviour
     }
     RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
 
-    if (SceneContextHolder.currentCondition % 2 == 0)
+    if (isExplaining)
+    {
+      return;
+    }
+    else if (SceneContextHolder.currentCondition % 2 == 0)
     {
       // subtle
       switch (SceneContextHolder.axis)
       {
         case "r":
           Debug.Log("r subtle");
-          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.1f);
+          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.2f);
           break;
         case "v":
           Debug.Log("v subtle");
@@ -203,7 +208,7 @@ public class TaskManager : MonoBehaviour
           RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 20, 0);
           break;
         default:
-          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.3f);
+          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.2f);
           break;
       }
     }
@@ -225,7 +230,7 @@ public class TaskManager : MonoBehaviour
           RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 45, 0);
           break;
         default:
-          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.3f);
+          RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.2f);
           break;
       }
     }
