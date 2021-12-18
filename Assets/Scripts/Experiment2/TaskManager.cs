@@ -22,7 +22,12 @@ public class TaskManager : MonoBehaviour
   public Material completeMaterial;
   public Material markerActiveMaterial;
   public Material markerInactiveMaterial;
-  public bool isExplaining;
+  public GameObject redirectionVirtualHandRight;
+  public GameObject redirectionVirtualHandLeft;
+  public GameObject redirectionRealHandRight;
+  public GameObject redirectionRealHandLeft;
+  public GameObject redirectionTrackedHandRight;
+  public GameObject redirectionTrackedHandLeft;
   private Renderer targetBasebaseRenderer;
   private StringBuilder sb;
   private Vector3 headPositionOnStart;
@@ -41,7 +46,19 @@ public class TaskManager : MonoBehaviour
 
     if (redirectionManager != null)
     {
-      redirectionManager.GetComponent<RedirectionManager>().initialTargetIndex = SceneContextHolder.currentButton;
+      RedirectionManager rm = redirectionManager.GetComponent<RedirectionManager>();
+      MovementController mc = redirectionManager.GetComponent<MovementController>();
+      rm.initialTargetIndex = SceneContextHolder.currentButton;
+      if (SceneContextHolder.isLeftHanded)
+      {
+        rm.virtualHand = redirectionVirtualHandLeft;
+        mc.trackedHand = redirectionTrackedHandLeft;
+      }
+      else
+      {
+        rm.virtualHand = redirectionVirtualHandRight;
+        mc.trackedHand = redirectionTrackedHandRight;
+      }
     }
 
     Invoke("initializeHead", 0.5f);
@@ -110,8 +127,9 @@ public class TaskManager : MonoBehaviour
           case 2:
             SceneManager.LoadScene("Evaluation");
             break;
+          // 3: evalutation => redirection 0
           default:
-            SceneManager.LoadScene("TaskWorm");
+            SceneManager.LoadScene("TaskRedirection");
             break;
         }
       }
@@ -208,7 +226,7 @@ public class TaskManager : MonoBehaviour
     }
     RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
 
-    if (isExplaining)
+    if (SceneContextHolder.isPractice && SceneContextHolder.practiceProgress >= 3)
     {
       return;
     }

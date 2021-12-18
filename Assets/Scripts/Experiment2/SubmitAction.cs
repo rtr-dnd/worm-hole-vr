@@ -22,6 +22,18 @@ public class SubmitAction : MonoBehaviour
     q2 = this.gameObject.transform.Find("Q2").transform.Find("Group").GetComponent<ToggleGroup>();
     q3 = this.gameObject.transform.Find("Q3").transform.Find("Group").GetComponent<ToggleGroup>();
   }
+
+  private void Update()
+  {
+    if (Input.GetKeyDown("n"))
+    {
+      if (SceneContextHolder.isPractice)
+      {
+        SceneContextHolder.practiceProgress += 1;
+        SceneManager.LoadScene("TaskRedirection");
+      }
+    }
+  }
   public void Submit()
   {
     Toggle t0 = q0.ActiveToggles().FirstOrDefault();

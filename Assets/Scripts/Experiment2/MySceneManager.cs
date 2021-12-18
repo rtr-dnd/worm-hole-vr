@@ -10,6 +10,7 @@ public class MySceneManager : MonoBehaviour
   public int trialNum;
   public int conditionNum;
   public bool isPractice;
+  public bool isLeftHanded;
   public GameObject shoulderTracker;
   private string firstSceneName;
   // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class MySceneManager : MonoBehaviour
     SceneContextHolder.axis = axis;
     SceneContextHolder.trialNum = trialNum;
     SceneContextHolder.conditionNum = conditionNum;
+    SceneContextHolder.isLeftHanded = isLeftHanded;
 
     SceneContextHolder.currentCondition = UnityEngine.Random.Range(0, conditionNum);
     if (SceneContextHolder.currentCondition < (conditionNum / 2)) // first half is worm, latter half is redirection
@@ -71,6 +73,7 @@ public static class SceneContextHolder
   public static int[] progress { get; set; }
   public static int[,] buttonProgress { get; set; }
   public static int currentButton { get; set; }
+  public static bool isLeftHanded { get; set; }
   public static bool isPractice { get; set; }
   public static int practiceProgress { get; set; }
 }
