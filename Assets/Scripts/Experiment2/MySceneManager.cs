@@ -9,12 +9,15 @@ public class MySceneManager : MonoBehaviour
   public string axis;
   public int trialNum;
   public int conditionNum;
+  public bool isPractice;
   public GameObject shoulderTracker;
   private string firstSceneName;
-  private bool hasSetShoulder;
   // Start is called before the first frame update
   void Start()
   {
+    SceneContextHolder.isPractice = isPractice;
+    if (isPractice) return;
+
     System.DateTime centuryBegin = new System.DateTime(2001, 1, 1);
     SceneContextHolder.timeStamp = System.DateTime.Now.Ticks - centuryBegin.Ticks;
     SceneContextHolder.filePrefix = filePrefix;
@@ -40,14 +43,13 @@ public class MySceneManager : MonoBehaviour
 
   private void Update()
   {
-    if (Input.GetKeyDown("r"))
-    {
-      SceneContextHolder.shoulderPosition = shoulderTracker.transform.position;
-      hasSetShoulder = true;
-      Debug.Log("recorded shoulder position: " + SceneContextHolder.shoulderPosition);
-    }
     if (Input.GetKeyDown("n"))
     {
+      if (isPractice)
+      {
+        SceneManager.LoadScene("TaskWorm");
+        return;
+      }
       SceneManager.LoadScene(firstSceneName);
     }
   }
@@ -69,5 +71,6 @@ public static class SceneContextHolder
   public static int[] progress { get; set; }
   public static int[,] buttonProgress { get; set; }
   public static int currentButton { get; set; }
-  public static Vector3 shoulderPosition { get; set; }
+  public static bool isPractice { get; set; }
+  public static int practiceProgress { get; set; }
 }

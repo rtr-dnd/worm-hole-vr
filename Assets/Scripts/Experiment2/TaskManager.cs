@@ -97,6 +97,25 @@ public class TaskManager : MonoBehaviour
       headPositionOnStart = head.transform.position;
       targetBasebaseRenderer.material = targetMaterial;
     }
+    else if (Input.GetKeyDown("n"))
+    {
+      if (SceneContextHolder.isPractice)
+      {
+        SceneContextHolder.practiceProgress += 1;
+        switch (SceneContextHolder.practiceProgress)
+        {
+          case 1:
+            SceneManager.LoadScene("TaskRedirection");
+            break;
+          case 2:
+            SceneManager.LoadScene("Evaluation");
+            break;
+          default:
+            SceneManager.LoadScene("TaskWorm");
+            break;
+        }
+      }
+    }
     else if (Input.GetKeyDown("0"))
     {
       pressedButton = 0;
@@ -152,7 +171,10 @@ public class TaskManager : MonoBehaviour
 
   void nextScene()
   {
+    if (SceneContextHolder.isPractice) return;
+
     var folder = Application.persistentDataPath;
+
     // axis, condition, trial, button
     if (SceneContextHolder.progress != null)
     {

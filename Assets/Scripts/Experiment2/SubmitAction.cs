@@ -22,8 +22,6 @@ public class SubmitAction : MonoBehaviour
     q2 = this.gameObject.transform.Find("Q2").transform.Find("Group").GetComponent<ToggleGroup>();
     q3 = this.gameObject.transform.Find("Q3").transform.Find("Group").GetComponent<ToggleGroup>();
   }
-
-  // Update is called once per frame
   public void Submit()
   {
     Toggle t0 = q0.ActiveToggles().FirstOrDefault();
