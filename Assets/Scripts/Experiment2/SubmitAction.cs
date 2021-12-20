@@ -30,7 +30,7 @@ public class SubmitAction : MonoBehaviour
       if (SceneContextHolder.isPractice)
       {
         SceneContextHolder.practiceProgress += 1;
-        SceneManager.LoadScene("TaskRedirection");
+        SceneManager.LoadScene("NoRedirection");
       }
     }
   }

@@ -48,7 +48,14 @@ public class TaskManager : MonoBehaviour
     {
       RedirectionManager rm = redirectionManager.GetComponent<RedirectionManager>();
       MovementController mc = redirectionManager.GetComponent<MovementController>();
+      // if (SceneContextHolder.isPractice)
+      // {
+      //   rm.initialTargetIndex = 4;
+      // }
+      // else
+      // {
       rm.initialTargetIndex = SceneContextHolder.currentButton;
+      // }
       if (SceneContextHolder.isLeftHanded)
       {
         rm.virtualHand = redirectionVirtualHandLeft;
@@ -245,7 +252,14 @@ public class TaskManager : MonoBehaviour
           break;
         case "h":
           Debug.Log("h subtle");
-          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 20, 0);
+          if (SceneContextHolder.isLeftHanded)
+          {
+            RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, -20, 0);
+          }
+          else
+          {
+            RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 20, 0);
+          }
           break;
         default:
           RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.2f);
@@ -267,7 +281,14 @@ public class TaskManager : MonoBehaviour
           break;
         case "h":
           Debug.Log("h overt");
-          RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 45, 0);
+          if (SceneContextHolder.isLeftHanded)
+          {
+            RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, -45, 0);
+          }
+          else
+          {
+            RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 45, 0);
+          }
           break;
         default:
           RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.2f);

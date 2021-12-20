@@ -17,6 +17,8 @@ public class MySceneManager : MonoBehaviour
   void Start()
   {
     SceneContextHolder.isPractice = isPractice;
+    SceneContextHolder.isLeftHanded = isLeftHanded;
+    if (isPractice) { SceneContextHolder.currentButton = 4; }
     if (isPractice) return;
 
     System.DateTime centuryBegin = new System.DateTime(2001, 1, 1);
@@ -25,7 +27,6 @@ public class MySceneManager : MonoBehaviour
     SceneContextHolder.axis = axis;
     SceneContextHolder.trialNum = trialNum;
     SceneContextHolder.conditionNum = conditionNum;
-    SceneContextHolder.isLeftHanded = isLeftHanded;
 
     SceneContextHolder.currentCondition = UnityEngine.Random.Range(0, conditionNum);
     if (SceneContextHolder.currentCondition < (conditionNum / 2)) // first half is worm, latter half is redirection
