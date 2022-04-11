@@ -130,7 +130,7 @@ namespace HR_Toolkit
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;
       }
-      Invoke("initialRedirection", 1.5f);
+      Invoke("initialRedirection", 0.6f);
     }
 
     /// <summary>
