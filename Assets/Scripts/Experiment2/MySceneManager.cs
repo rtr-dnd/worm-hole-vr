@@ -12,6 +12,9 @@ public class MySceneManager : MonoBehaviour
   public bool isPractice;
   public bool isLeftHanded;
   public GameObject shoulderTracker;
+
+  public bool isExperiment3;
+
   private string firstSceneName;
   // Start is called before the first frame update
   void Start()
@@ -32,10 +35,16 @@ public class MySceneManager : MonoBehaviour
     if (SceneContextHolder.currentCondition < (conditionNum / 2)) // first half is worm, latter half is redirection
     {
       firstSceneName = "TaskWorm";
+      if(isExperiment3){
+        firstSceneName = "TaskWorm_3";
+      }
     }
     else
     {
       firstSceneName = "TaskRedirection";
+      if(isExperiment3){
+        firstSceneName = "TaskRedirection_3";
+      }
     }
     SceneContextHolder.progress = new int[conditionNum];
     SceneContextHolder.buttonProgress = new int[conditionNum, 5];
