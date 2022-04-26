@@ -117,11 +117,21 @@ public class SubmitAction : MonoBehaviour
     // load next scene
     if (nextCondition < (SceneContextHolder.conditionNum / 2))
     {
-      SceneManager.LoadScene("TaskWorm");
+      //SceneManager.LoadScene("TaskWorm");
+      if(SceneContextHolder.isExperiment3){
+        SceneManager.LoadScene("TaskWorm_3");
+      }else{
+        SceneManager.LoadScene("TaskWorm");
+      } 
     }
     else
     {
-      SceneManager.LoadScene("TaskRedirection");
+      //SceneManager.LoadScene("TaskRedirection");
+      if(SceneContextHolder.isExperiment3){
+        SceneManager.LoadScene("TaskRedirection_3");
+      }else{
+        SceneManager.LoadScene("TaskRedirection");
+      } 
     }
   }
 }
