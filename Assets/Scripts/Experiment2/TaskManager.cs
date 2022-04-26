@@ -240,8 +240,41 @@ public class TaskManager : MonoBehaviour
   }
   void initializeDisplacement_3(){
     //がんばりましょう
+    // set origin to head position
+    Vector3 headDisplace = headPositionOnStart - RealToVirtualDisplacement.transform.position;
+    RealToVirtualDisplacement.transform.position = headPositionOnStart;
+
+    // undo offset for children
+    for (int a = 0; a < RealToVirtualDisplacement.transform.childCount; a++)
+    {
+      RealToVirtualDisplacement.transform.GetChild(a).position -= headDisplace;
+    }
+    RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+    if(SceneContextHolder.isPractice && SceneContextHolder.practiceProgress >=3)
+    {
+      return;
+    }else
+    {
+      float delta = (-6 + SceneContextHolder.currentCondition % 13)*15.0;
+      switch (SceneContextHolder.axis)
+      {
+        case "y":
+          Debug.Log("y"+ToString(delta));
+          RealToVirtualDisplacement.transform.rotation += Quaternion.Euler(0, delta, 0);
+          break;
+        case "p":
+          Debug.Log("p"+ToString(delta));
+          RealToVirtualDisplacement.transform.rotation += Quaternion.Euler(delta, 0, 0);
+          break;
+        default:
+          RealToVirtualDisplacement.transform.rotation += Quaternion.Euler(0, delta, 0);
+          break;
+      }
+    }
+
   }
-  
+
   void initializeDisplacement()
   {
     // set origin to head position
