@@ -60,7 +60,11 @@ public class MySceneManager : MonoBehaviour
     {
       if (isPractice)
       {
-        SceneManager.LoadScene("TaskWorm");
+        if(isExperiment3){
+          SceneManager.LoadScene("TaskWorm_3");
+        }else{
+          SceneManager.LoadScene("TaskWorm");
+        } 
         return;
       }
       SceneManager.LoadScene(firstSceneName);
