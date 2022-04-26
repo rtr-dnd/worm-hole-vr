@@ -19,6 +19,7 @@ public class MySceneManager : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
+    SceneContextHolder.isExperiment3 = isExperiment3;
     SceneContextHolder.isPractice = isPractice;
     SceneContextHolder.isLeftHanded = isLeftHanded;
     if (isPractice) { SceneContextHolder.currentButton = 4; }
@@ -73,6 +74,7 @@ public class MySceneManager : MonoBehaviour
 
 public static class SceneContextHolder
 {
+  public static bool isExperiment3;
   public static long timeStamp;
   public static string filePrefix;
   public static string axis { get; set; }
