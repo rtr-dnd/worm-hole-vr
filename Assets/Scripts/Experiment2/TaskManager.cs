@@ -37,12 +37,24 @@ public class TaskManager : MonoBehaviour
   private int state = 0;
   private int pressedButton = -1;
   // Start is called before the first frame update
+
+  //scenenames
+  private string redirectionSceneName = "TaskRedirection";
+  private string wormSceneName = "TaskWorm";
+
   void Start()
   {
     Debug.Log(SceneContextHolder.axis);
     Debug.Log(SceneContextHolder.currentCondition);
     Debug.Log(SceneContextHolder.progress);
     sb = new StringBuilder("time, state, pressedButton, markerIsActive, pxRightReal, pyRightReal, pzRightReal, rxRightReal, ryRightReal, rzRightReal, eulerxRightReal, euleryRightReal, eulerzRightReal, pxRightVirtual, pyRightVirtual, pzRightVirtual, rxRightVirtual, ryRightVirtual, rzRightVirtual, eulerxRightVirtual, euleryRightVirtual, eulerzRightVirtual, pxLeftReal, pyLeftReal, pzLeftReal, rxLeftReal, ryLeftReal, rzLeftReal, eulerxLeftReal, euleryLeftReal, eulerzLeftReal, pxLeftVirtual, pyLeftVirtual, pzLeftVirtual, rxLeftVirtual, ryLeftVirtual, rzLeftVirtual, eulerxLeftVirtual, euleryLeftVirtual, eulerzLeftVirtual, pxHead, pyHead, pzHead, rxHead, ryHead, rzHead, eulerxHead, euleryHead, eulerzHead\n");
+
+    //define scenename
+
+    if(SceneContextHolder.isExperiment3){
+      redirectionSceneName = "TaskRedirection_3";
+      wormSceneName = "TaskWorm_3";
+    }
 
     if (redirectionManager != null)
     {
@@ -129,14 +141,14 @@ public class TaskManager : MonoBehaviour
         switch (SceneContextHolder.practiceProgress)
         {
           case 1:
-            SceneManager.LoadScene("TaskRedirection");
+            SceneManager.LoadScene(redirectionSceneName);
             break;
           case 2:
             SceneManager.LoadScene("Evaluation");
             break;
           // 3: evalutation => redirection 0
           default:
-            SceneManager.LoadScene("TaskRedirection");
+            SceneManager.LoadScene(redirectionSceneName);
             break;
         }
       }
