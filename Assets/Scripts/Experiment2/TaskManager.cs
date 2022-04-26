@@ -230,9 +230,18 @@ public class TaskManager : MonoBehaviour
     headPositionOnStart = head.transform.position;
     Debug.Log("head set at " + headPositionOnStart);
 
-    initializeDisplacement();
+    if(SceneContextHolder.isExperiment3){
+      initializeDisplacement_3();
+    }else{
+      initializeDisplacement();
+    }
+    
     initializeProps();
   }
+  void initializeDisplacement_3(){
+    //がんばりましょう
+  }
+  
   void initializeDisplacement()
   {
     // set origin to head position
