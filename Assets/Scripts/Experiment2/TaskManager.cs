@@ -264,21 +264,26 @@ public class TaskManager : MonoBehaviour
     SceneManager.LoadScene("Evaluation");
   }
 
-  void initializeHead()
+   void initializeHead()
   {
     headPositionOnStart = head.transform.position;
     Debug.Log("head set at " + headPositionOnStart);
 
+    /*
     if(SceneContextHolder.isExperiment3){
       initializeDisplacement_3();
     }else{
       initializeDisplacement();
     }
+    */
+    initializeDisplacement();
     
     initializeProps();
   }
+
+
   void initializeDisplacement_3(){
-    //がんばりましょう
+    //がんばりましょう //これ使ってないです
     // set origin to head position
     Vector3 headDisplace = headPositionOnStart - RealToVirtualDisplacement.transform.position;
     RealToVirtualDisplacement.transform.position = headPositionOnStart;
@@ -354,6 +359,20 @@ public class TaskManager : MonoBehaviour
             RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 20, 0);
           }
           break;
+
+        case "ro":
+          Debug.Log("ro subtle");
+          RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, 0.0f, 15.0f);
+          break;
+        case "ya":
+          Debug.Log("ya subtle");
+          RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, 15.0f, 0.0f);
+          break;
+        case "pi":
+          Debug.Log("pi subtle");
+          RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(15.0f, 0.0f, 0.0f);
+          break;
+
         default:
           RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.2f);
           break;
@@ -383,6 +402,20 @@ public class TaskManager : MonoBehaviour
             RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 45, 0);
           }
           break;
+
+        case "ro":
+          Debug.Log("ro overt");
+          RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, 0.0f, 45.0f);
+          break;
+        case "ya":
+          Debug.Log("ya overt");
+          RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, 45.0f, 0.0f);
+          break;
+        case "pi":
+          Debug.Log("pi overt");
+          RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(45.0f, 0.0f, 0.0f);
+          break;
+
         default:
           RealToVirtualDisplacement.transform.position += new Vector3(0, 0, 0.2f);
           break;
@@ -415,3 +448,4 @@ public class TaskManager : MonoBehaviour
     targetBasebaseRenderer.material = targetMaterial;
   }
 }
+

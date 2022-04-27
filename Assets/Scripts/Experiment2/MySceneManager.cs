@@ -85,8 +85,6 @@ public static class SceneContextHolder
   public static int trialNum { get; set; }
   public static int conditionNum { get; set; }
   // conditions: [ws, wo, rs, ro]
-  // conditions: [w-90, w-75, w-60, w-45, w-30, w-15, w0, w+15, w+30, w+45, w+60, w+75, w+90,
-  //              r-90, r-75, r-60, r-45, r-30, r-15, r0, r+15, r+30, r+45, r+60, r+75, r+90] 26
   public static int currentCondition { get; set; }
   public static int[] progress { get; set; }
   public static int[,] buttonProgress { get; set; }
