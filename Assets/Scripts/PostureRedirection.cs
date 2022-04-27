@@ -85,8 +85,8 @@ public class PostureRedirection : MonoBehaviour
         targetHand.transform.localScale = hand.transform.localScale;
         float ratio = Vector3.Distance(targetTransform.position, targetHand.position) / distance;
         //RealDisplacement　と　RealToVirtualDisplacementの中間な傾きをratioの割合で算出
-        var redirectQuarternion = Quaternion.Lerp(RealDisplacement.rotation, targetTransform.rotation, ratio);
+        var redirectQuarternion = Quaternion.Lerp(sourceTransform.rotation, targetTransform.rotation, ratio);
         Debug.Log("Redirected : " + redirectQuarternion);
-        targetHand.rotation = redirectQuarternion * Quaternion.Inverse(targetHand.rotation) * hand.rotation;
+        targetHand.rotation = redirectQuarternion * Quaternion.Inverse(sourceTransform.rotation) * hand.rotation;
     }
 }
