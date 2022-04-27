@@ -32,19 +32,25 @@ public class PostureRedirection : MonoBehaviour
 
         distance = Vector3.Distance(sourceTransform.position, targetTransform.position);
         handParent.localRotation = Quaternion.Euler(0, 0, 0);
+        Debug.Log("Initial distance : " + distance + " : handParent Rotaion : " + handParent.transform.rotation);
+        Debug.Log(hand + ": " + targetHand);
     }
 
     // Update is called once per frame
     void Update()
     {
+        var init_position = hand.position;
+        // hand.position = new Vector3(0.0f,0.0f, 0.0f);
         //Copy HaRT_CoreWithVR Hand to RealDisplacement Hand!
         targetHand.transform.position = hand.transform.position;
         targetHand.transform.localScale = hand.transform.localScale;
-        targetHand.transform.rotation = hand.transform.rotation;
+        targetHand.transform.localRotation = hand.transform.rotation;
+        // hand.position = init_position;
         //RealToVirtualDisplacementとHandとの初期位置からのボードまでの距離とボードから手までの距離の比率
         float ratio = Vector3.Distance(targetTransform.position, targetHand.position) / distance;
         //RealDisplacement　と　RealToVirtualDisplacementの中間な傾きをratioの割合で算出
         var redirectQuarternion = Quaternion.Lerp(RealDisplacement.rotation, targetTransform.rotation, ratio);
+        Debug.Log("Redirected : " + redirectQuarternion);
         handParent.transform.rotation = redirectQuarternion;
     }
 }
