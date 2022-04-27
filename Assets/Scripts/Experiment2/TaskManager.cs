@@ -42,8 +42,7 @@ public class TaskManager : MonoBehaviour
   private string redirectionSceneName = "TaskRedirection";
   private string wormSceneName = "TaskWorm";
 
-  void Start()
-  {
+  void Awake(){
     Debug.Log(SceneContextHolder.axis);
     Debug.Log(SceneContextHolder.currentCondition);
     Debug.Log(SceneContextHolder.progress);
@@ -81,6 +80,46 @@ public class TaskManager : MonoBehaviour
     }
 
     Invoke("initializeHead", 0.5f);
+  }
+  void Start()
+  {
+    /* Debug.Log(SceneContextHolder.axis);
+    Debug.Log(SceneContextHolder.currentCondition);
+    Debug.Log(SceneContextHolder.progress);
+    sb = new StringBuilder("time, state, pressedButton, markerIsActive, pxRightReal, pyRightReal, pzRightReal, rxRightReal, ryRightReal, rzRightReal, eulerxRightReal, euleryRightReal, eulerzRightReal, pxRightVirtual, pyRightVirtual, pzRightVirtual, rxRightVirtual, ryRightVirtual, rzRightVirtual, eulerxRightVirtual, euleryRightVirtual, eulerzRightVirtual, pxLeftReal, pyLeftReal, pzLeftReal, rxLeftReal, ryLeftReal, rzLeftReal, eulerxLeftReal, euleryLeftReal, eulerzLeftReal, pxLeftVirtual, pyLeftVirtual, pzLeftVirtual, rxLeftVirtual, ryLeftVirtual, rzLeftVirtual, eulerxLeftVirtual, euleryLeftVirtual, eulerzLeftVirtual, pxHead, pyHead, pzHead, rxHead, ryHead, rzHead, eulerxHead, euleryHead, eulerzHead\n");
+
+    //define scenename
+
+    if(SceneContextHolder.isExperiment3){
+      redirectionSceneName = "TaskRedirection_3";
+      wormSceneName = "TaskWorm_3";
+    }
+
+    if (redirectionManager != null)
+    {
+      RedirectionManager rm = redirectionManager.GetComponent<RedirectionManager>();
+      MovementController mc = redirectionManager.GetComponent<MovementController>();
+      // if (SceneContextHolder.isPractice)
+      // {
+      //   rm.initialTargetIndex = 4;
+      // }
+      // else
+      // {
+      rm.initialTargetIndex = SceneContextHolder.currentButton;
+      // }
+      if (SceneContextHolder.isLeftHanded)
+      {
+        rm.virtualHand = redirectionVirtualHandLeft;
+        mc.trackedHand = redirectionTrackedHandLeft;
+      }
+      else
+      {
+        rm.virtualHand = redirectionVirtualHandRight;
+        mc.trackedHand = redirectionTrackedHandRight;
+      }
+    }
+
+    Invoke("initializeHead", 0.5f); */
   }
 
   // Update is called once per frame
