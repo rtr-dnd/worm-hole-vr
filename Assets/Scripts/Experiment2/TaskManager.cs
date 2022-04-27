@@ -256,19 +256,19 @@ public class TaskManager : MonoBehaviour
       return;
     }else
     {
-      float delta = (-6 + SceneContextHolder.currentCondition % 13)*15.0;
+      float delta = (-6.0f + SceneContextHolder.currentCondition % 13)*15.0f;
       switch (SceneContextHolder.axis)
       {
         case "y":
-          Debug.Log("y"+ToString(delta));
-          RealToVirtualDisplacement.transform.rotation += Quaternion.Euler(0, delta, 0);
+          Debug.Log("y"+delta.ToString());
+          RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, delta, 0.0f);
           break;
         case "p":
-          Debug.Log("p"+ToString(delta));
-          RealToVirtualDisplacement.transform.rotation += Quaternion.Euler(delta, 0, 0);
+          Debug.Log("p"+delta.ToString());
+          RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(delta, 0.0f, 0.0f);
           break;
         default:
-          RealToVirtualDisplacement.transform.rotation += Quaternion.Euler(0, delta, 0);
+          RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, delta, 0.0f);
           break;
       }
     }
