@@ -37,15 +37,27 @@ public class PostureRedirection : MonoBehaviour
     }
 
     // Update is called once per frame
+    // void Update()
+    // {
+    //     //Copy HaRT_CoreWithVR Hand to RealDisplacement Hand!
+    //     targetHand.transform.position = hand.transform.position;
+    //     targetHand.transform.localScale = hand.transform.localScale;
+    //     targetHand.transform.localRotation = hand.transform.rotation;
+    //     //RealToVirtualDisplacementとHandとの初期位置からのボードまでの距離とボードから手までの距離の比率
+    //     float ratio = Vector3.Distance(targetTransform.position, targetHand.position) / distance;
+    //     //RealDisplacement　と　RealToVirtualDisplacementの中間な傾きをratioの割合で算出
+    //     var redirectQuarternion = Quaternion.Lerp(RealDisplacement.rotation, targetTransform.rotation, ratio);
+    //     Debug.Log("Redirected : " + redirectQuarternion);
+    //     handParent.transform.rotation = redirectQuarternion;
+    // }
+    
+    //hand parentの傾きを0にして、そのあとでまた、変える方法
     void Update()
     {
-        var init_position = hand.position;
-        // hand.position = new Vector3(0.0f,0.0f, 0.0f);
+        handParent.transform.rotation = Quaternion.Euler(0.0f, 0.0f ,0.0f);
         //Copy HaRT_CoreWithVR Hand to RealDisplacement Hand!
-        targetHand.transform.position = hand.transform.position;
-        targetHand.transform.localScale = hand.transform.localScale;
-        targetHand.transform.localRotation = hand.transform.rotation;
-        // hand.position = init_position;
+        targetHand.transform.rotation = hand.transform.rotation;
+        targetHand.transform.position = hand.position;
         //RealToVirtualDisplacementとHandとの初期位置からのボードまでの距離とボードから手までの距離の比率
         float ratio = Vector3.Distance(targetTransform.position, targetHand.position) / distance;
         //RealDisplacement　と　RealToVirtualDisplacementの中間な傾きをratioの割合で算出
@@ -53,4 +65,19 @@ public class PostureRedirection : MonoBehaviour
         Debug.Log("Redirected : " + redirectQuarternion);
         handParent.transform.rotation = redirectQuarternion;
     }
+    // void Update()
+    // {
+    //     var handCopy = GameObject.Instantiate(hand);
+    //     //Copy HaRT_CoreWithVR Hand to RealDisplacement Hand!
+    //     handCopy.position = new Vector3(0.0f, 0.0f, 0.0f);
+    //     targetHand.transform.rotation = handCopy.rotation;
+    //     targetHand.transform.localPosition = hand.position;
+    //     //RealToVirtualDisplacementとHandとの初期位置からのボードまでの距離とボードから手までの距離の比率
+    //     float ratio = Vector3.Distance(targetTransform.position, targetHand.position) / distance;
+    //     //RealDisplacement　と　RealToVirtualDisplacementの中間な傾きをratioの割合で算出
+    //     var redirectQuarternion = Quaternion.Lerp(RealDisplacement.rotation, targetTransform.rotation, ratio);
+    //     Debug.Log("Redirected : " + redirectQuarternion);
+    //     handParent.transform.rotation = redirectQuarternion;
+    //     GameObject.Destroy(hand);
+    // }
 }
