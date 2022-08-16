@@ -1,5 +1,6 @@
  Shader "Custom/ClipBoxReal" {
      Properties {
+         _Color ("Color", Color) = (1,1,1,1)
          _MainTex ("Albedo (RGB)", 2D) = "white" {}
          _Glossiness ("Smoothness", Range(0,1)) = 0.5
          _Metallic ("Metallic", Range(0,1)) = 0.0
@@ -10,7 +11,7 @@
          LOD 200
  
          CGPROGRAM
-         #pragma surface surf Standard fullforwardshadows addshadow
+         #pragma surface surf Standard fullforwardshadows
          #pragma target 3.0
  
          sampler2D _MainTex;
@@ -53,11 +54,14 @@
              );
  
  
-             fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
-             o.Albedo = c.rgb;
+            //  fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+            //  fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
+            //  o.Albedo = c.rgb;
+             o.Albedo = fixed3(0.8, 0.6, 0.4);
+            //  o.Albedo = fixed3(1, 1, 1);
              o.Metallic = _Metallic;
              o.Smoothness = _Glossiness;
-             o.Alpha = c.a;
+            //  o.Alpha = c.a;
          }
          ENDCG
      }

@@ -28,11 +28,13 @@
              clip(boxPosition + 0.5);
              clip(0.5 - boxPosition);
  
-             fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
-             o.Albedo = c.rgb;
+            //  fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
+            //  o.Albedo = c.rgb;
+             o.Albedo = fixed3(0.8, 0.6, 0.4);
+            //  o.Albedo = fixed3(1, 1, 1);
              o.Metallic = _Metallic;
              o.Smoothness = _Glossiness;
-             o.Alpha = c.a;
+            //  o.Alpha = c.a;
          }
          ENDCG
      }

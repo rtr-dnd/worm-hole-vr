@@ -113,6 +113,38 @@
         {
           "output": "/actions/default/in/pose",
           "path": "/user/foot/right/pose/raw"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/right/pose/back"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/left/pose/back"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/right/pose/front"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/left/pose/front"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/right/pose/front_rolled"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/left/pose/front_rolled"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/right/pose/pistol"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/left/pose/pistol"
         }
       ],
       "haptics": [

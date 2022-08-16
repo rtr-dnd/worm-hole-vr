@@ -31,6 +31,7 @@ public class TaskManager : MonoBehaviour
   private Renderer targetBasebaseRenderer;
   private StringBuilder sb;
   private Vector3 headPositionOnStart;
+  private Vector3 propsPositionOnStart;
   private bool markerIsActive;
 
   // 0: init, 1: hand placed, 2: reaching, 3: button pressed, 4: task completed
@@ -42,7 +43,8 @@ public class TaskManager : MonoBehaviour
   private string redirectionSceneName = "TaskRedirection";
   private string wormSceneName = "TaskWorm";
 
-  void Awake(){
+  void Awake()
+  {
     Debug.Log(SceneContextHolder.axis);
     Debug.Log(SceneContextHolder.currentCondition);
     Debug.Log(SceneContextHolder.progress);
@@ -50,23 +52,26 @@ public class TaskManager : MonoBehaviour
 
     //define scenename
 
-    if(SceneContextHolder.isExperiment3){
+    if (SceneContextHolder.isExperiment3)
+    {
       redirectionSceneName = "TaskRedirection_3";
       wormSceneName = "TaskWorm_3";
     }
+
+    propsPositionOnStart = props.transform.position;
 
     if (redirectionManager != null)
     {
       RedirectionManager rm = redirectionManager.GetComponent<RedirectionManager>();
       MovementController mc = redirectionManager.GetComponent<MovementController>();
-      // if (SceneContextHolder.isPractice)
-      // {
-      //   rm.initialTargetIndex = 4;
-      // }
-      // else
-      // {
-      rm.initialTargetIndex = SceneContextHolder.currentButton;
-      // }
+      if (SceneContextHolder.isPractice)
+      {
+        rm.initialTargetIndex = 4;
+      }
+      else
+      {
+        rm.initialTargetIndex = SceneContextHolder.currentButton;
+      }
       if (SceneContextHolder.isLeftHanded)
       {
         rm.virtualHand = redirectionVirtualHandLeft;
@@ -264,7 +269,7 @@ public class TaskManager : MonoBehaviour
     SceneManager.LoadScene("Evaluation");
   }
 
-   void initializeHead()
+  void initializeHead()
   {
     headPositionOnStart = head.transform.position;
     Debug.Log("head set at " + headPositionOnStart);
@@ -277,12 +282,13 @@ public class TaskManager : MonoBehaviour
     }
     */
     initializeDisplacement();
-    
+
     initializeProps();
   }
 
 
-  void initializeDisplacement_3(){
+  void initializeDisplacement_3()
+  {
     //がんばりましょう //これ使ってないです
     // set origin to head position
     Vector3 headDisplace = headPositionOnStart - RealToVirtualDisplacement.transform.position;
@@ -295,20 +301,21 @@ public class TaskManager : MonoBehaviour
     }
     RealToVirtualDisplacement.transform.localEulerAngles = new Vector3(0, 0, 0);
 
-    if(SceneContextHolder.isPractice && SceneContextHolder.practiceProgress >=3)
+    if (SceneContextHolder.isPractice && SceneContextHolder.practiceProgress >= 3)
     {
       return;
-    }else
+    }
+    else
     {
-      float delta = (-6.0f + SceneContextHolder.currentCondition % 13)*15.0f;
+      float delta = (-6.0f + SceneContextHolder.currentCondition % 13) * 15.0f;
       switch (SceneContextHolder.axis)
       {
         case "y":
-          Debug.Log("y"+delta.ToString());
+          Debug.Log("y" + delta.ToString());
           RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, delta, 0.0f);
           break;
         case "p":
-          Debug.Log("p"+delta.ToString());
+          Debug.Log("p" + delta.ToString());
           RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(delta, 0.0f, 0.0f);
           break;
         default:
@@ -337,6 +344,7 @@ public class TaskManager : MonoBehaviour
     }
     else if (SceneContextHolder.currentCondition % 2 == 0)
     {
+      Vector3 delta = new Vector3(0, 0, 0);
       // subtle
       switch (SceneContextHolder.axis)
       {
@@ -363,14 +371,23 @@ public class TaskManager : MonoBehaviour
         case "ro":
           Debug.Log("ro subtle");
           RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, 0.0f, 15.0f);
+          delta = propsPositionOnStart - props.transform.position;
+          RealToVirtualDisplacement.transform.position += delta; //逆だったらごめんなさい
+          RealToVirtualDisplacement.transform.position += new Vector3(0.0f, 0.0f, 0.2f); //2022/05/03追記
           break;
         case "ya":
           Debug.Log("ya subtle");
           RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, 15.0f, 0.0f);
+          delta = propsPositionOnStart - props.transform.position;
+          RealToVirtualDisplacement.transform.position += delta; //逆だったらごめんなさい
+          RealToVirtualDisplacement.transform.position += new Vector3(0.0f, 0.0f, 0.2f); //2022/05/03追記
           break;
         case "pi":
           Debug.Log("pi subtle");
           RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(15.0f, 0.0f, 0.0f);
+          delta = propsPositionOnStart - props.transform.position;
+          RealToVirtualDisplacement.transform.position += delta; //逆だったらごめんなさい
+          RealToVirtualDisplacement.transform.position += new Vector3(0.0f, 0.0f, 0.2f); //2022/05/03追記
           break;
 
         default:
@@ -380,6 +397,7 @@ public class TaskManager : MonoBehaviour
     }
     else
     {
+      Vector3 delta = new Vector3(0, 0, 0);
       // overt
       switch (SceneContextHolder.axis)
       {
@@ -406,14 +424,23 @@ public class TaskManager : MonoBehaviour
         case "ro":
           Debug.Log("ro overt");
           RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, 0.0f, 45.0f);
+          delta = propsPositionOnStart - props.transform.position;
+          RealToVirtualDisplacement.transform.position += delta; //逆だったらごめんなさい
+          RealToVirtualDisplacement.transform.position += new Vector3(0.0f, 0.0f, 0.2f); //2022/05/03追記
           break;
         case "ya":
           Debug.Log("ya overt");
           RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(0.0f, 45.0f, 0.0f);
+          delta = propsPositionOnStart - props.transform.position;
+          RealToVirtualDisplacement.transform.position += delta; //逆だったらごめんなさい
+          RealToVirtualDisplacement.transform.position += new Vector3(0.0f, 0.0f, 0.2f); //2022/05/03追記
           break;
         case "pi":
           Debug.Log("pi overt");
           RealToVirtualDisplacement.transform.rotation *= Quaternion.Euler(45.0f, 0.0f, 0.0f);
+          delta = propsPositionOnStart - props.transform.position;
+          RealToVirtualDisplacement.transform.position += delta; //逆だったらごめんなさい
+          RealToVirtualDisplacement.transform.position += new Vector3(0.0f, 0.0f, 0.2f); //2022/05/03追記
           break;
 
         default:
